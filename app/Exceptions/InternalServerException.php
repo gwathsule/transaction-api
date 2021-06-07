@@ -2,14 +2,15 @@
 
 namespace App\Exceptions;
 
-class AuthorizationException extends UserException
+abstract class InternalServerException extends UserException implements UserExceptionInterface
 {
-    private const CATEGORY = 'authorization';
-    private const STATUS = 401;
+    const STATUS = 500;
+    const CATEGORY = 'internal';
+    const USER_MESSAGE = 'Internal server error.';
 
     public function getUserMessage(): string
     {
-        return $this->message;
+        return self::USER_MESSAGE;
     }
 
     public function getCategory(): string

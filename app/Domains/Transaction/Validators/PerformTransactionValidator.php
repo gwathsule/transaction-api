@@ -13,8 +13,8 @@ class PerformTransactionValidator extends Validator
     {
         return [
             'value' => ['required', 'numeric'],
-            'payer' => ['required', 'numeric'],
-            'payee' => ['required', 'numeric'],
+            'payer' => ['required', 'numeric', 'exists:'.User::class.',id'],
+            'payee' => ['required', 'numeric', 'exists:'.User::class.',id'],
         ];
     }
 

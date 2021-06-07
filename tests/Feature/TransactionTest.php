@@ -30,7 +30,10 @@ class TransactionTest extends TestCase
             'payee' => $payee->id,
         ];
 
-        $this->post('/transaction');
+        $this->json('POST', '/transaction', $requestData)
+            ->seeJson([
+                'created' => true,
+            ]);
     }
 
     public function testTryPerformTransactionValidationError()

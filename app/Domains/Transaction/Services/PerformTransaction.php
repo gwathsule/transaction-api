@@ -36,6 +36,11 @@ class PerformTransaction extends Service
         return $validator->validate();
     }
 
+    /**
+     * @param array $data
+     * @return Transaction
+     * @throws UserException
+     */
     protected function perform(array $data)
     {
         /** @var User $payer */
@@ -58,5 +63,7 @@ class PerformTransaction extends Service
         $this->userRepository->update($payee);
         $this->userRepository->update($payer);
         $this->transactionRepository->save($transaction);
+
+        return $transaction;
     }
 }
