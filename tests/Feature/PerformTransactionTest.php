@@ -2,17 +2,32 @@
 
 namespace Feature;
 
+use App\Domains\User\User;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 use TestCase;
 
 class PerformTransactionTest extends TestCase
 {
+    use DatabaseMigrations;
+
     public function testPerformTransactionSuccessful()
     {
-        $this->get('/');
+        /** @var User $payer */
+        $payer = User::factory([
+            'balance' => 100
+        ])->create();
+        /** @var User $payee */
+        $payee = User::factory([
+            'balance' => 100
+        ])->create();
 
-        $this->assertEquals(
-            $this->app->version(), $this->response->getContent()
-        );
+        $requestData = [
+            'value' => 10,
+            'payer' => $payer->id,
+            'payee' => $payee->id,
+        ];
+
+        $this->post('/transaction');
     }
 
     public function testTryPerformTransactionValidationError()

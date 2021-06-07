@@ -3,15 +3,12 @@
 namespace App\Domains\User;
 
 use Carbon\Carbon;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Lumen\Auth\Authorizable;
 
 /**
  * @property int $id
+ * @property boolean $isStore
  * @property string $name
  * @property string $cpf
  * @property string $email
@@ -20,13 +17,17 @@ use Laravel\Lumen\Auth\Authorizable;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class User extends Model
 {
-    use Authenticatable, Authorizable, HasFactory;
+    use HasFactory;
+
+    const TYPE_CUSTOMER = 1;
+    const TYPE_STORE = 1;
 
     protected $table = 'user';
 
     protected $fillable = [
+        'type',
         'name',
         'email',
         'cpf',
@@ -38,9 +39,4 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
-
-    public function userable()
-    {
-        return $this->morphTo();
-    }
 }

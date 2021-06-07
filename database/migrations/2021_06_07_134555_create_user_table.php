@@ -15,12 +15,12 @@ class CreateUserTable extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('cpf', 11);
-            $table->decimal('balance');
-            $table->integer('userable_id');
-            $table->string('userable_type');
+            $table->boolean('isStore')->nullable();
+            $table->string('name')->nullable();
+            $table->string('cpf', 11)->nullable();
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();
+            $table->decimal('balance')->nullable();
             $table->timestamps();
         });
     }

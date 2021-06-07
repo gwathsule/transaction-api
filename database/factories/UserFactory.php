@@ -7,23 +7,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
             'name' => $this->faker->name,
+            'cpf' => $this->faker->unique()->numerify('###########'),
+            'cnpj' => $this->faker->unique()->numerify('##############'),
             'email' => $this->faker->unique()->safeEmail,
+            'balance' => $this->faker->randomFloat(2, 10, 100),
         ];
     }
 }
