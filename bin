@@ -1,0 +1,31 @@
+#!/bin/bash
+
+CONTAINER_APP=app
+
+if [[ $1 = "artisan" ]]
+then
+    docker-compose exec ${CONTAINER_APP} php $@; exit;
+fi
+
+if [[ $1 = "composer" ]]
+then
+    docker-compose exec ${CONTAINER_APP} $@; exit;
+fi
+
+if [[ $1 = "phpunit" ]]
+then
+    docker-compose exec ${CONTAINER_APP} vendor/bin/$@; exit;
+fi
+
+if [[ $1 = "up" ]]
+then
+    docker-compose $@; exit;
+fi
+
+if [[ $1 = "down" ]]
+then
+    docker-compose $@; exit;
+fi
+
+# Run anything in container.
+docker-compose exec ${CONTAINER_APP} $@

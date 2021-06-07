@@ -1,0 +1,36 @@
+version: '2'
+
+volumes:
+  transaction-mysql-data:
+    driver: local
+
+services:
+  # MySQL 8
+  mysql:
+    image: mysql:latest
+    container_name: transaction-mysql
+    volumes:
+      - transaction-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=transaction
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+
+  # PHP with Nginx
+  app:
+    image: relaycloud/php:7.4-nginx
+    container_name: transaction-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "80:8080"
+      - "443:8083"
+    links:
+      - mysql
+    environment:
+      - XDEBUG_ENABLED=true
+      - PHP_IDE_CONFIG=serverName=ambientum
+      - DOCKER_FOR_WINDOWS=${DOCKER_FOR_WINDOWS}
