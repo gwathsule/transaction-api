@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use App\Domains\User\User;
 use App\Exceptions\ValidationException;
 use App\Exceptions\AuthorizationException;
 use Illuminate\Support\Facades\Validator as CoreValidator;

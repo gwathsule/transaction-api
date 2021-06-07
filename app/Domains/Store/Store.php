@@ -3,6 +3,7 @@
 namespace App\Domains\Store;
 
 use App\Domains\User\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Store extends Model
 {
+    use HasFactory;
+
     protected $table = 'store';
     public $timestamps = false;
 

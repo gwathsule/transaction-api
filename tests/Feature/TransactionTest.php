@@ -2,24 +2,27 @@
 
 namespace Feature;
 
+use App\Domains\Store\Store;
 use App\Domains\User\User;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use TestCase;
 
-class PerformTransactionTest extends TestCase
+class TransactionTest extends TestCase
 {
     use DatabaseMigrations;
 
     public function testPerformTransactionSuccessful()
     {
-        /** @var User $payer */
-        $payer = User::factory([
-            'balance' => 100
-        ])->create();
         /** @var User $payee */
-        $payee = User::factory([
-            'balance' => 100
-        ])->create();
+        $payee = User::factory()->create([
+            'isStore' => true,
+            'balance' => 100,
+        ]);
+        Store::factory(['user_id' => $payee->id])->create();
+        /** @var User $payer */
+        $payer = User::factory()->create([
+            'balance' => 100,
+        ]);
 
         $requestData = [
             'value' => 10,
