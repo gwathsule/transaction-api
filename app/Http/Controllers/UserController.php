@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Transaction\Services\PerformTransaction;
-use App\Domains\Transaction\Transaction;
+use App\Domains\User\Services\CreateUser;
+use App\Domains\User\User;
 use App\Exceptions\InternalServerException;
 use App\Exceptions\UserException;
 use App\Exceptions\ValidationException;
-use Exception;
 use Illuminate\Http\Request;
+use Exception;
 
-class TransactionController extends Controller
+class UserController extends Controller
 {
-    private PerformTransaction $servicePerformTransaction;
+    private CreateUser $createUser;
 
-    public function __construct(PerformTransaction $servicePerformTransaction)
+    public function __construct(CreateUser $createUser)
     {
-        $this->servicePerformTransaction = $servicePerformTransaction;
+        $this->createUser = $createUser;
     }
 
-    public function performTransaction(Request $request)
+    public function createUser(Request $request)
     {
         try {
-            /** @var Transaction $transaction */
-            $transaction = $this->servicePerformTransaction->handle($request->toArray());
-            return $this->buildSuccessfulResponse($transaction->toArray());
+            /** @var User $user */
+            $user = $this->createUser->handle($request->toArray());
+            return $this->buildSuccessfulResponse($user->toArray());
         } catch (ValidationException $exception) {
             return $this->buildUserErrorResponse(
                 $exception->getUserMessage(),

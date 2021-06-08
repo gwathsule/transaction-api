@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Domains\Store\Validators;
+namespace App\Domains\User\Validators;
 
 use App\Core\Validator;
-use App\Domains\Store\Store;
 use App\Domains\User\User;
 
-class CreateStoreValidator extends Validator
+class CreateUserValidator extends Validator
 {
     public function rules()
     {
         return [
             'name' => ['required', 'max:255'],
             'cpf' => ['required', 'max:11', 'unique:'.User::class.',cpf'],
-            'cnpj' => ['required', 'max:14', 'unique:'.Store::class.',cnpj'],
             'email' => ['required', 'max:255', 'email', 'unique:'.User::class.',email'],
             'password' => ['required', 'max:255', 'confirmed'],
         ];

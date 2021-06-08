@@ -3,6 +3,7 @@
 namespace App\Domains\User;
 
 use Carbon\Carbon;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,4 +40,9 @@ class User extends Model
     protected $hidden = [
         'password',
     ];
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
 }
