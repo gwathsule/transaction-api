@@ -21,6 +21,7 @@ class UserTest extends TestCase
             'email' => $user->email,
             'password' => 'Abc@1234',
             'password_confirmation' => 'Abc@1234',
+            'balance' => 50.7
         ];
 
         $this->json('POST', '/user/create', $requestData)
@@ -28,7 +29,7 @@ class UserTest extends TestCase
                 'name' => $user->name,
                 'cpf' => $user->cpf,
                 'email' => $user->email,
-                'balance' => 0,
+                'balance' => 50.7,
                 'isStore' => false,
             ])
             ->assertResponseOk();

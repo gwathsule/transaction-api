@@ -36,7 +36,7 @@ class CreateUser extends Service
         $user->cpf = $data['cpf'];
         $user->email = $data['email'];
         $user->password = $data['password'];
-        $user->balance = 0;
+        $user->balance = $data['balance'] ?? 0;
         $user->isStore = false;
         $this->userRepository->save($user);
 

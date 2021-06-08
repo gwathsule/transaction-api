@@ -39,7 +39,7 @@ class CreateStore extends Service
             $userStore->cpf = $data['cpf'];
             $userStore->email = $data['email'];
             $userStore->password = $data['password'];
-            $userStore->balance = 0;
+            $userStore->balance = $data['balance'] ?? 0;
             $userStore->isStore = true;
             $this->userRepository->save($userStore);
 

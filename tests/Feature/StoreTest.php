@@ -25,6 +25,7 @@ class StoreTest extends TestCase
             'email' => $user->email,
             'password' => 'Abc@1234',
             'password_confirmation' => 'Abc@1234',
+            'balance' => 100.5
         ];
 
         $this->json('POST', '/store/create', $requestData)
@@ -33,7 +34,7 @@ class StoreTest extends TestCase
                 'name' => $user->name,
                 'cpf' => $user->cpf,
                 'email' => $user->email,
-                'balance' => "0",
+                'balance' => "100.5",
                 'isStore' => "1",
             ])
             ->assertResponseOk();

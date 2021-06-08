@@ -16,6 +16,7 @@ class CreateStoreValidator extends Validator
             'cnpj' => ['required', 'max:14', 'unique:'.Store::class.',cnpj'],
             'email' => ['required', 'max:255', 'email', 'unique:'.User::class.',email'],
             'password' => ['required', 'max:255', 'confirmed'],
+            'balance' => ['numeric'],
         ];
     }
 }
