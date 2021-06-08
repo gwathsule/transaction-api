@@ -16,6 +16,7 @@ class CreateTransactionTable extends Migration
         Schema::create('transaction', function (Blueprint $table) {
             $table->id();
             $table->decimal('amount');
+            $table->boolean('notified');
             $table->unsignedBigInteger('payer_id');
             $table->foreign('payer_id')
                 ->references('id')

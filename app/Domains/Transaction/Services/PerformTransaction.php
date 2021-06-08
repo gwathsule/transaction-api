@@ -8,7 +8,10 @@ use App\Domains\Transaction\TransactionRepository;
 use App\Domains\Transaction\Validators\PerformTransactionValidator;
 use App\Domains\User\User;
 use App\Domains\User\UserRepository;
+use App\Exceptions\AuthorizationException;
 use App\Exceptions\UserException;
+use App\ExternalServices\Notify\Notifier;
+use App\ExternalServices\TransactionAuthorizer\Authorizer;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -16,14 +19,20 @@ class PerformTransaction extends Service
 {
     private UserRepository $userRepository;
     private TransactionRepository $transactionRepository;
+    private Authorizer $authorizer;
+    private Notifier $notifier;
 
     public function __construct(
         UserRepository $userRepository,
-        TransactionRepository $transactionRepository
+        TransactionRepository $transactionRepository,
+        Authorizer $authorizer,
+        Notifier $notifier
     )
     {
         $this->userRepository = $userRepository;
         $this->transactionRepository = $transactionRepository;
+        $this->authorizer = $authorizer;
+        $this->notifier = $notifier;
     }
 
     /**
@@ -64,6 +73,11 @@ class PerformTransaction extends Service
             $transaction->payee_id = $payee->id;
             $transaction->payer_id = $payer->id;
 
+            $authorized = $this->authorizer->isAuthorized();
+            if(! $authorized ) {
+                throw new AuthorizationException('Not authorized.');
+            }
+            $transaction->notified = $this->notifier->notifyUser($payee->email);
             $this->userRepository->update($payee);
             $this->userRepository->update($payer);
             $this->transactionRepository->save($transaction);

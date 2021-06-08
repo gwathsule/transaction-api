@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $amount
  * @property int $payer_id
  * @property int $payee_id
+ * @property bool $notified
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property User $payer
@@ -28,6 +29,7 @@ class Transaction extends Model
         'amount',
         'payer_id',
         'payee_id',
+        'notified',
         'created_at',
         'updated_at',
     ];

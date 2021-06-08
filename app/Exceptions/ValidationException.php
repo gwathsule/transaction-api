@@ -6,8 +6,8 @@ use Throwable;
 
 class ValidationException extends UserException
 {
-    private const CATEGORY = 'validation';
-    private const STATUS = 400;
+    public const CATEGORY = 'validation';
+    public const STATUS = 400;
 
     private array $errors;
 

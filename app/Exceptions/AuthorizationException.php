@@ -4,8 +4,8 @@ namespace App\Exceptions;
 
 class AuthorizationException extends UserException
 {
-    private const CATEGORY = 'authorization';
-    private const STATUS = 401;
+    public const CATEGORY = 'authorization';
+    public const STATUS = 401;
 
     public function getUserMessage(): string
     {

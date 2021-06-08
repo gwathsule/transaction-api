@@ -6,8 +6,8 @@ use Exception;
 
 class UserException extends Exception implements UserExceptionInterface
 {
-    private const CATEGORY = 'user_error';
-    private const STATUS = 400;
+    public const CATEGORY = 'user_error';
+    public const STATUS = 400;
 
     public function getUserMessage(): string
     {
