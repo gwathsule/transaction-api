@@ -28,13 +28,18 @@ class User extends Model
     protected $table = 'user';
 
     protected $fillable = [
-        'type',
+        'isStore',
         'name',
         'email',
         'cpf',
         'balance',
         'created_at',
         'updated_at',
+    ];
+
+    protected $casts = [
+        'balance' => 'float',
+        'isStore' => 'boolean',
     ];
 
     protected $hidden = [

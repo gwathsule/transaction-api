@@ -34,6 +34,10 @@ class Transaction extends Model
         'updated_at',
     ];
 
+    protected $casts = [
+        'amount' => 'float',
+    ];
+
     public function payer()
     {
         return $this->belongsTo(User::class);

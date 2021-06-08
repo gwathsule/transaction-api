@@ -11,4 +11,9 @@ class UserRepository extends Repository
     {
         return User::class;
     }
+
+    public function all()
+    {
+        return $this->newQuery()->where('isStore', false)->get();
+    }
 }

@@ -35,8 +35,8 @@ class StoreTest extends TestCase
                 'name' => $user->name,
                 'cpf' => $user->cpf,
                 'email' => $user->email,
-                'balance' => "100.5",
-                'isStore' => "1",
+                'balance' => 100.5,
+                'isStore' => true,
             ])
             ->assertResponseOk();
     }
