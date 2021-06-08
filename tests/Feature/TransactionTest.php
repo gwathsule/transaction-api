@@ -30,10 +30,19 @@ class TransactionTest extends TestCase
             'payee' => $payee->id,
         ];
 
-        $this->json('POST', '/transaction', $requestData)
+        $newPayerBalance = $payer->balance - $requestData['value'];
+        $newPayeeBalance = $payee->balance + $requestData['value'];
+
+        $this->json('POST', '/transaction/create', $requestData)
             ->seeJson([
-                'created' => true,
+                'amount' => $requestData['value'],
+                'payer_id' => $payer->id,
+                'payee_id' => $payee->id,
             ]);
+        $payer->refresh();
+        $payee->refresh();
+        $this->assertEquals($payer->balance, $newPayerBalance);
+        $this->assertEquals($payee->balance, $newPayeeBalance);
     }
 
     public function testTryPerformTransactionValidationError()

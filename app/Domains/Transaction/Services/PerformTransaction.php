@@ -9,6 +9,8 @@ use App\Domains\Transaction\Validators\PerformTransactionValidator;
 use App\Domains\User\User;
 use App\Domains\User\UserRepository;
 use App\Exceptions\UserException;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class PerformTransaction extends Service
 {
@@ -43,26 +45,33 @@ class PerformTransaction extends Service
      */
     protected function perform(array $data)
     {
-        /** @var User $payer */
-        $payer = $this->userRepository->getById($data['payer']);
-        /** @var User $payee */
-        $payee = $this->userRepository->getById($data['payee']);
+        DB::beginTransaction();
+        try {
+            /** @var User $payer */
+            $payer = $this->userRepository->getById($data['payer']);
+            /** @var User $payee */
+            $payee = $this->userRepository->getById($data['payee']);
 
-        if($payer->balance - $data['amount'] < 0) {
-            throw new UserException('User with insufficient balance.');
+            if ($payer->balance - $data['value'] < 0) {
+                throw new UserException('User with insufficient balance.');
+            }
+
+            $payer->balance -= $data['value'];
+            $payee->balance += $data['value'];
+
+            $transaction = new Transaction();
+            $transaction->amount = $data['value'];
+            $transaction->payee_id = $payee->id;
+            $transaction->payer_id = $payer->id;
+
+            $this->userRepository->update($payee);
+            $this->userRepository->update($payer);
+            $this->transactionRepository->save($transaction);
+        }catch (Exception $exception) {
+            DB::rollBack();
+            throw $exception;
         }
-
-        $payer->balance =- $data['amount'];
-        $payee->balance =+ $data['amount'];
-
-        $transaction = new Transaction();
-        $transaction->amount = $data['amount'];
-        $transaction->payee = $payee->id;
-        $transaction->payer = $payer->id;
-
-        $this->userRepository->update($payee);
-        $this->userRepository->update($payer);
-        $this->transactionRepository->save($transaction);
+        DB::commit();
 
         return $transaction;
     }

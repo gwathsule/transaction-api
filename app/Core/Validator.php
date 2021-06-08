@@ -48,7 +48,7 @@ abstract class Validator
         }
 
         if ($this->isAuthorized() === false) {
-            throw new AuthorizationException(__('auth.unauthorized'));
+            throw new AuthorizationException(__('Not authorized.'));
         }
         return $validated;
     }

@@ -48,8 +48,7 @@ class CreateStore extends Service
             $store->user_id = $userStore->id;
             $this->storeRepository->save($store);
         } catch (Exception $exception) {
-            DB::rollBack();
-            throw new Exception();
+            throw $exception;
         }
         DB::commit();
         return $store;
