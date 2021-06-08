@@ -201,7 +201,7 @@ Saída (Lista objeto User):
 ]
 ```
 
-##### Transactions
+#### 1.1.3 Transactions
 ```bash
 /transaction/create
 ```
@@ -354,6 +354,82 @@ Saída (Lista objeto Transação):
     }
   }
 ]
+```
+
+### 1.2 Erros
+A API possui um padrão json para os erros retornados. Todos eles possuem os seguintes atributos:
+
+* error (boolean): Informa se a mensagem se trata de um erro;
+* category (string): Informa a categoria do erro, será descrito abaixo cada um;
+* message (string) : Uma mensagem formatada que é retornada ao usuário;
+* data (array): Possui informações extras referente ao erro.
+
+ 
+#### 1.2.1 Erros de usuários
+Esse tipo é retornados quando um usuário tenta realizar uma ação impossível, por exemplo, quando um usuário tenta efetuar
+uma transação sem saldo suficiente. O nome da categoria retornado é *user_error* e o status HTTP da resposta é 400. 
+
+Exemplo:
+```json
+{
+  "error": true,
+  "category": "user_error",
+  "message": "User with insufficient balance.",
+  "data": []
+}
+```
+
+#### 1.2.3 Erros de Validação
+Esse tipo é retornados quando há erro na validação do formulário. Nesse caso é preenchido o array *data* do retorno com a
+informação referente aos campos com erro.
+O nome da categoria retornado é *validation* e o status HTTP da resposta é 400. 
+
+Exemplo:
+```json
+{
+  "error": true,
+  "category": "validation",
+  "message": "The given data was invalid.",
+  "data": {
+    "cpf": [
+      "The cpf may not be greater than 11 characters."
+    ],
+    "cnpj": [
+      "The cnpj has already been taken."
+    ],
+    "email": [
+      "The email has already been taken."
+    ]
+  }
+}
+```
+#### 1.2.4 Erros de Autorização
+Esse tipo é retornados quando o usuário não é autorizado a realizar algum processo. Por exemplo, uma loja tentar realizar
+uma transferência para qualquer outro usuário.
+O nome da categoria retornado é *authorization* e o status HTTP da resposta é 401. 
+
+Exemplo:
+```json
+{
+  "error": true,
+  "category": "authorization",
+  "message": "Not authorized.",
+  "data": []
+}
+```
+#### 1.2.5 Erros Internos
+
+Esse tipo é retornados quando há um erro interno não esperado.
+O nome da categoria retornado é *internal* e o status HTTP da resposta é 500. 
+
+Exemplo:
+```json
+{
+  "error": true,
+  "category": "internal",
+  "message": "Internal server error.",
+  "data": []
+}
 ```
 
 ## 2 INSTALAÇÃO
