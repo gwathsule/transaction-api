@@ -21,7 +21,7 @@ class Controller extends BaseController
         string $category,
         int $statusError,
         array $data = []
-    ){
+    ) {
         $content = [
             'error' => true,
             'category' => $category,

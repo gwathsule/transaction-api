@@ -12,7 +12,7 @@ class CreateUser extends Service
     private UserRepository $userRepository;
 
     public function __construct(
-        UserRepository  $userRepository
+        UserRepository $userRepository
     ) {
         $this->userRepository = $userRepository;
     }

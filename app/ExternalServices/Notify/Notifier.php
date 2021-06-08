@@ -20,7 +20,7 @@ class Notifier
     {
         try {
             $data = $this->client->performRequest(self::URL, true);
-            if($data['message'] === 'Success') {
+            if ($data['message'] === 'Success') {
                 return true;
             }
         } catch (Exception $exception) {

@@ -22,8 +22,8 @@ class User extends Model
 {
     use HasFactory;
 
-    const TYPE_CUSTOMER = 1;
-    const TYPE_STORE = 1;
+    public const TYPE_CUSTOMER = 1;
+    public const TYPE_STORE = 1;
 
     protected $table = 'user';
 

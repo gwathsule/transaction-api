@@ -27,5 +27,18 @@ then
     docker-compose $@; exit;
 fi
 
+if [[ $1 = "phpcs" ]]
+then
+    docker-compose run ${CONTAINER_APP} php vendor/squizlabs/php_codesniffer/bin/$@; exit;
+    exit
+fi
+
+if [[ $1 = "phpcbf" ]]
+then
+    docker-compose run ${CONTAINER_APP} php vendor/squizlabs/php_codesniffer/bin/$@; exit;
+    exit
+fi
+
+
 # Run anything in container.
 docker-compose exec ${CONTAINER_APP} $@

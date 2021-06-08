@@ -16,11 +16,11 @@ class Authorizer
         $this->client = $client;
     }
 
-    public function isAuthorized() : bool
+    public function isAuthorized(): bool
     {
         try {
             $data = $this->client->performRequest(self::URL, true);
-            if($data['message'] === 'Autorizado') {
+            if ($data['message'] === 'Autorizado') {
                 return true;
             }
         } catch (Exception $exception) {

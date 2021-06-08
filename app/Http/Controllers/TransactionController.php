@@ -20,8 +20,7 @@ class TransactionController extends Controller
     public function __construct(
         PerformTransaction $servicePerformTransaction,
         ListTransactions $listTransactions
-    )
-    {
+    ) {
         $this->servicePerformTransaction = $servicePerformTransaction;
         $this->listTransactions = $listTransactions;
     }

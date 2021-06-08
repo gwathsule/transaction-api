@@ -27,8 +27,7 @@ class PerformTransaction extends Service
         TransactionRepository $transactionRepository,
         Authorizer $authorizer,
         Notifier $notifier
-    )
-    {
+    ) {
         $this->userRepository = $userRepository;
         $this->transactionRepository = $transactionRepository;
         $this->authorizer = $authorizer;
@@ -74,14 +73,14 @@ class PerformTransaction extends Service
             $transaction->payer_id = $payer->id;
 
             $authorized = $this->authorizer->isAuthorized();
-            if(! $authorized ) {
+            if (! $authorized) {
                 throw new AuthorizationException('Not authorized.');
             }
             $transaction->notified = $this->notifier->notifyUser($payee->email);
             $this->userRepository->update($payee);
             $this->userRepository->update($payer);
             $this->transactionRepository->save($transaction);
-        }catch (Exception $exception) {
+        } catch (Exception $exception) {
             DB::rollBack();
             throw $exception;
         }

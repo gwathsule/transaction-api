@@ -73,5 +73,4 @@ abstract class Repository
     {
         return $this->newQuery()->get();
     }
-
 }

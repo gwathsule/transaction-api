@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Domains\Transaction\Validators;
 
 use App\Core\Validator;
@@ -13,16 +12,16 @@ class PerformTransactionValidator extends Validator
     {
         return [
             'value' => ['required', 'numeric'],
-            'payer' => ['required', 'numeric', 'exists:'.User::class.',id'],
-            'payee' => ['required', 'numeric', 'exists:'.User::class.',id'],
+            'payer' => ['required', 'numeric', 'exists:' . User::class . ',id'],
+            'payee' => ['required', 'numeric', 'exists:' . User::class . ',id'],
         ];
     }
 
-    function isAuthorized(): bool
+    public function isAuthorized(): bool
     {
         /** @var User $user */
         $user = (new UserRepository())->getById($this->data['payer']);
-        if($user->isStore) {
+        if ($user->isStore) {
             return false;
         }
         return true;

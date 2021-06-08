@@ -20,8 +20,7 @@ class StoreController extends Controller
     public function __construct(
         CreateStore $createStoreService,
         ListStores $listStores
-    )
-    {
+    ) {
         $this->listStores = $listStores;
         $this->createStoreService = $createStoreService;
     }

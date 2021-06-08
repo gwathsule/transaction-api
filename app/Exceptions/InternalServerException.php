@@ -4,9 +4,9 @@ namespace App\Exceptions;
 
 abstract class InternalServerException extends UserException implements UserExceptionInterface
 {
-    const STATUS = 500;
-    const CATEGORY = 'internal';
-    const USER_MESSAGE = 'Internal server error.';
+    public const STATUS = 500;
+    public const CATEGORY = 'internal';
+    public const USER_MESSAGE = 'Internal server error.';
 
     public function getUserMessage(): string
     {

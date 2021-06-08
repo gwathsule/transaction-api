@@ -83,7 +83,7 @@ class StoreTest extends TestCase
         $this->assertCount(3, $list);
         $firstStore = $list[0];
         $this->assertEquals($store1->cnpj, $firstStore['cnpj']);
-        $this->assertEquals($store1->user->isStore, (boolean) $firstStore['user']['isStore']);
+        $this->assertEquals($store1->user->isStore, (bool) $firstStore['user']['isStore']);
         $this->assertEquals($store1->user->name, $firstStore['user']['name']);
         $this->assertEquals($store1->user->cpf, $firstStore['user']['cpf']);
         $this->assertEquals($store1->user->email, $firstStore['user']['email']);

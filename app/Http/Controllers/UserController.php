@@ -20,8 +20,7 @@ class UserController extends Controller
     public function __construct(
         CreateUser $createUser,
         ListUsers $listUsers
-    )
-    {
+    ) {
         $this->listUsers = $listUsers;
         $this->createUser = $createUser;
     }

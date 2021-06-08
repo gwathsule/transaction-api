@@ -34,11 +34,13 @@ class Transaction extends Model
         'updated_at',
     ];
 
-    public function payer() {
+    public function payer()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function payee() {
+    public function payee()
+    {
         return $this->belongsTo(User::class);
     }
 

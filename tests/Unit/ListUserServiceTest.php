@@ -38,7 +38,7 @@ class ListUserServiceTest extends TestCase
         $this->assertCount(3, $list);
         /** @var User $firstUser */
         $firstUser = $list[0];
-        $this->assertEquals($user1->isStore, (boolean) $firstUser->isStore);
+        $this->assertEquals($user1->isStore, (bool) $firstUser->isStore);
         $this->assertEquals($user1->name, $firstUser->name);
         $this->assertEquals($user1->cpf, $firstUser->cpf);
         $this->assertEquals($user1->email, $firstUser->email);

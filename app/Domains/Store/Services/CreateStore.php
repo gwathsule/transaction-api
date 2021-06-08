@@ -18,7 +18,7 @@ class CreateStore extends Service
 
     public function __construct(
         StoreRepository $storeRepository,
-        UserRepository  $userRepository
+        UserRepository $userRepository
     ) {
         $this->storeRepository = $storeRepository;
         $this->userRepository = $userRepository;

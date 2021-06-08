@@ -55,6 +55,6 @@ class CreateStoreServiceTest extends TestCase
         $this->assertEquals($requestData['cpf'], $store->user->cpf);
         $this->assertEquals($requestData['email'], $store->user->email);
         $this->assertEquals($requestData['balance'], $store->user->balance);
-        $this->assertTrue((boolean) $store->user->isStore);
+        $this->assertTrue((bool) $store->user->isStore);
     }
 }
