@@ -3,20 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Domains\Store\Services\CreateStore;
+use App\Domains\Store\Services\ListStores;
 use App\Domains\Store\Store;
-use App\Domains\Transaction\Transaction;
 use App\Exceptions\InternalServerException;
 use App\Exceptions\UserException;
 use App\Exceptions\ValidationException;
 use Illuminate\Http\Request;
 use Exception;
+use Ramsey\Collection\Collection;
 
 class StoreController extends Controller
 {
     private CreateStore $createStoreService;
+    private ListStores $listStores;
 
-    public function __construct(CreateStore $createStoreService)
+    public function __construct(
+        CreateStore $createStoreService,
+        ListStores $listStores
+    )
     {
+        $this->listStores = $listStores;
         $this->createStoreService = $createStoreService;
     }
 
@@ -39,6 +45,21 @@ class StoreController extends Controller
                 $exception->getCategory(),
                 $exception->getStatus(),
             );
+        } catch (Exception $exception) {
+            return $this->buildUserErrorResponse(
+                InternalServerException::USER_MESSAGE,
+                InternalServerException::CATEGORY,
+                InternalServerException::STATUS
+            );
+        }
+    }
+
+    public function listStores()
+    {
+        try {
+            /** @var Collection $list */
+            $list = $this->listStores->handle();
+            return $this->buildSuccessfulResponse($list->toArray());
         } catch (Exception $exception) {
             return $this->buildUserErrorResponse(
                 InternalServerException::USER_MESSAGE,

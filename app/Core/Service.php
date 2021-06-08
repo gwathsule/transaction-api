@@ -8,7 +8,7 @@ abstract class Service
 
     abstract protected function perform(array $data);
 
-    public function handle(array $data)
+    public function handle(array $data = [])
     {
         $this->validate($data);
         return $this->perform($data);

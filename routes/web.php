@@ -14,10 +14,14 @@ $router->group(['prefix' => 'transaction'], function () use ($router) {
 $router->group(['prefix' => 'user'], function () use ($router) {
     /** @see UserController::createUser() */
     $router->post('create', UserController::class . '@createUser');
+    /** @see UserController::listUsers() */
+    $router->get('list', UserController::class . '@listUsers');
 });
 
 $router->group(['prefix' => 'store'], function () use ($router) {
     /** @see StoreController::createStore() */
     $router->post('create', StoreController::class . '@createStore');
+    /** @see StoreController::listStores() */
+    $router->get('list', StoreController::class . '@listStores');
 });
 

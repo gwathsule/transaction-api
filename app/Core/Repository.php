@@ -66,4 +66,12 @@ abstract class Repository
         return $model->delete();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function all()
+    {
+        return $this->newQuery()->get();
+    }
+
 }

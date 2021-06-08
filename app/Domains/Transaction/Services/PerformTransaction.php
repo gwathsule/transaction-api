@@ -52,7 +52,7 @@ class PerformTransaction extends Service
      * @return Transaction
      * @throws UserException
      */
-    protected function perform(array $data)
+    public function perform(array $data)
     {
         DB::beginTransaction();
         try {

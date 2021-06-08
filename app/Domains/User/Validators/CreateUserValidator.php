@@ -14,7 +14,7 @@ class CreateUserValidator extends Validator
             'cpf' => ['required', 'max:11', 'unique:'.User::class.',cpf'],
             'email' => ['required', 'max:255', 'email', 'unique:'.User::class.',email'],
             'password' => ['required', 'max:255', 'confirmed'],
-            'balance' => ['numeric'],
+            'balance' => ['numeric', 'min:0'],
         ];
     }
 }

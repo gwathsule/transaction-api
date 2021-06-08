@@ -7,7 +7,7 @@ use Exception;
 
 class Notifier
 {
-    private const URL = "http://o4d9z.mocklab.io/notify";
+    public const URL = "http://o4d9z.mocklab.io/notify";
     private CurlClient $client;
 
     public function __construct(CurlClient $client)

@@ -12,11 +12,11 @@ class CreateStoreValidator extends Validator
     {
         return [
             'name' => ['required', 'max:255'],
-            'cpf' => ['required', 'max:11', 'unique:'.User::class.',cpf'],
-            'cnpj' => ['required', 'max:14', 'unique:'.Store::class.',cnpj'],
+            'cpf' => ['required', 'max:11', 'min:11', 'unique:'.User::class.',cpf'],
+            'cnpj' => ['required', 'max:14', 'min:14', 'unique:'.Store::class.',cnpj'],
             'email' => ['required', 'max:255', 'email', 'unique:'.User::class.',email'],
             'password' => ['required', 'max:255', 'confirmed'],
-            'balance' => ['numeric'],
+            'balance' => ['numeric', 'min:0'],
         ];
     }
 }
