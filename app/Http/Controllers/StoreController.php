@@ -10,7 +10,7 @@ use App\Exceptions\UserException;
 use App\Exceptions\ValidationException;
 use Illuminate\Http\Request;
 use Exception;
-use Ramsey\Collection\Collection;
+use Illuminate\Support\Collection;
 
 class StoreController extends Controller
 {

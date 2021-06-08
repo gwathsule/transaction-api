@@ -9,6 +9,8 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'transaction'], function () use ($router) {
     /** @see TransactionController::performTransaction() */
     $router->post('create', TransactionController::class . '@performTransaction');
+    /** @see TransactionController::listTransactions() */
+    $router->get('list', TransactionController::class . '@listTransactions');
 });
 
 $router->group(['prefix' => 'user'], function () use ($router) {

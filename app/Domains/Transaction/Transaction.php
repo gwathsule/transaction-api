@@ -35,10 +35,19 @@ class Transaction extends Model
     ];
 
     public function payer() {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function payee() {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function toArray()
+    {
+        $relations = [
+            'payee' => $this->payee->toArray(),
+            'payer' => $this->payer->toArray(),
+        ];
+        return array_merge(parent::toArray(), $relations);
     }
 }
