@@ -10,8 +10,8 @@ use App\Domains\User\User;
 use App\Domains\User\UserRepository;
 use App\Exceptions\AuthorizationException;
 use App\Exceptions\UserException;
-use App\ExternalServices\Notify\Notifier;
-use App\ExternalServices\TransactionAuthorizer\Authorizer;
+use App\ExternalServices\Notify\ExternalNotifier;
+use App\ExternalServices\TransactionAuthorizer\ExternalAuthorizer;
 use App\Support\CurlClient;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Mockery;
@@ -25,15 +25,15 @@ class PerformTransactionServiceTest extends TestCase
 
     public function setUp(): void
     {
-        /** @var Authorizer $fakeAuthorizer */
-        $fakeAuthorizer = Mockery::mock(Authorizer::class)
+        /** @var ExternalAuthorizer $fakeAuthorizer */
+        $fakeAuthorizer = Mockery::mock(ExternalAuthorizer::class)
             ->shouldReceive('isAuthorized')
             ->once()
             ->andReturn(true)
             ->getMock();
 
-        /** @var Notifier $fakeNotifier */
-        $fakeNotifier = Mockery::mock(Notifier::class)
+        /** @var ExternalNotifier $fakeNotifier */
+        $fakeNotifier = Mockery::mock(ExternalNotifier::class)
             ->shouldReceive('notifyUser')
             ->once()
             ->andReturn(true)
@@ -178,13 +178,13 @@ class PerformTransactionServiceTest extends TestCase
                 'message' => 'Não Autorizado',
             ])
             ->getMock();
-        $authorizer = new Authorizer($fakeAuthClient);
+        $authorizer = new ExternalAuthorizer($fakeAuthClient);
 
         $service = new PerformTransaction(
             new UserRepository(),
             new TransactionRepository(),
             $authorizer,
-            new Notifier(new CurlClient())
+            new ExternalNotifier(new CurlClient())
         );
 
         /** @var User $payee */
@@ -209,15 +209,15 @@ class PerformTransactionServiceTest extends TestCase
 
     public function testPerformTransactionWithoutNotification()
     {
-        /** @var Authorizer $fakeAuthorizer */
-        $fakeAuthorizer = Mockery::mock(Authorizer::class)
+        /** @var ExternalAuthorizer $fakeAuthorizer */
+        $fakeAuthorizer = Mockery::mock(ExternalAuthorizer::class)
             ->shouldReceive('isAuthorized')
             ->once()
             ->andReturn(true)
             ->getMock();
 
-        /** @var Notifier $fakeNotifier */
-        $fakeNotifier = Mockery::mock(Notifier::class)
+        /** @var ExternalNotifier $fakeNotifier */
+        $fakeNotifier = Mockery::mock(ExternalNotifier::class)
             ->shouldReceive('notifyUser')
             ->once()
             ->andReturn(false)

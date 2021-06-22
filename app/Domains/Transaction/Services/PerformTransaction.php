@@ -10,8 +10,8 @@ use App\Domains\User\User;
 use App\Domains\User\UserRepository;
 use App\Exceptions\AuthorizationException;
 use App\Exceptions\UserException;
-use App\ExternalServices\Notify\Notifier;
-use App\ExternalServices\TransactionAuthorizer\Authorizer;
+use App\ExternalServices\Notify\ExternalNotifier;
+use App\ExternalServices\TransactionAuthorizer\ExternalAuthorizer;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -19,14 +19,14 @@ class PerformTransaction extends Service
 {
     private UserRepository $userRepository;
     private TransactionRepository $transactionRepository;
-    private Authorizer $authorizer;
-    private Notifier $notifier;
+    private ExternalAuthorizer $authorizer;
+    private ExternalNotifier $notifier;
 
     public function __construct(
         UserRepository $userRepository,
         TransactionRepository $transactionRepository,
-        Authorizer $authorizer,
-        Notifier $notifier
+        ExternalAuthorizer $authorizer,
+        ExternalNotifier $notifier
     ) {
         $this->userRepository = $userRepository;
         $this->transactionRepository = $transactionRepository;

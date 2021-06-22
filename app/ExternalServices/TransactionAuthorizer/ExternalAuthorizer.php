@@ -1,13 +1,15 @@
 <?php
 
-namespace App\ExternalServices\Notify;
+namespace App\ExternalServices\TransactionAuthorizer;
 
+use App\Core\Authorizer;
 use App\Support\CurlClient;
 use Exception;
 
-class Notifier
+class ExternalAuthorizer implements Authorizer
 {
-    public const URL = "http://o4d9z.mocklab.io/notify";
+    public const URL = "https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6";
+
     private CurlClient $client;
 
     public function __construct(CurlClient $client)
@@ -15,16 +17,15 @@ class Notifier
         $this->client = $client;
     }
 
-
-    public function notifyUser($email)
+    public function isAuthorized(): bool
     {
         try {
             $data = $this->client->performRequest(self::URL, true);
-            if ($data['message'] === 'Success') {
+            if ($data['message'] === 'Autorizado') {
                 return true;
             }
         } catch (Exception $exception) {
-            throw new NotifierException($exception->getMessage());
+            throw new AuthorizerException($exception->getMessage());
         }
         return false;
     }

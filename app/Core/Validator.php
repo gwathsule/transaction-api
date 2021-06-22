@@ -7,7 +7,7 @@ use App\Exceptions\AuthorizationException;
 use Illuminate\Support\Facades\Validator as CoreValidator;
 use Illuminate\Validation\ValidationException as CoreValidationException;
 
-abstract class Validator
+abstract class Validator implements Authorizer
 {
     protected array $data;
 
@@ -25,7 +25,7 @@ abstract class Validator
         return [];
     }
 
-    public function isAuthorized()
+    public function isAuthorized() : bool
     {
         return true;
     }
