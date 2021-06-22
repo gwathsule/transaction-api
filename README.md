@@ -5,7 +5,8 @@
 ```bash
 /store/create
 ```
-Cadastra uma store no banco de dados<br/>
+Cadastra um usuário do tipo loja no banco de dados
+
 Regras de entrada:
 * name (string, obrigatório): Nome da nova loja;
 * cpf (string, obrigatório): CPF do usuário que criou a loja;
@@ -70,8 +71,9 @@ Exemplo:
 ```bash
 /store/list
 ```
-Lista as stores cadastradas no banco de dados<br/>
-Saída (Lista objeto stores):
+Lista as lojas cadastradas no banco de dados
+
+Saída (Lista objeto Store):
 
 ```json
 [
@@ -172,9 +174,9 @@ Exemplo:
 ```bash
 /user/list
 ```
-Lista os usuários normails cadastrados no banco de dados
+Lista os usuários comuns cadastrados no banco de dados
 
-Saída (Lista objeto User):
+Saída (Lista de objeto User):
 
 ```json
 [
@@ -289,9 +291,9 @@ Exemplo:
 ```bash
 /transaction/list
 ```
-Lista as transações no banco de dados
+Lista as transações no banco de dados.
 
-Saída (Lista objeto Transação):
+Saída (Lista de objeto Transaction):
 
 ```json
 [
@@ -357,12 +359,12 @@ Saída (Lista objeto Transação):
 ```
 
 ### 1.2 Erros
-A API possui um padrão json para os erros retornados. Todos eles possuem os seguintes atributos:
+A API possui um padrão JSON para os erros retornados. Todos eles possuem os seguintes atributos:
 
 * error (boolean): Informa se a mensagem se trata de um erro;
 * category (string): Informa a categoria do erro, será descrito abaixo cada um;
-* message (string) : Uma mensagem formatada que é retornada ao usuário;
-* data (array): Possui informações extras referente ao erro.
+* message (string) : Uma mensagem formatada que é retornada para o usuário da API;
+* data (array): Lista com informações extras referente ao erro.
 
  
 #### 1.2.1 Erros de usuários
@@ -380,9 +382,9 @@ Exemplo:
 ```
 
 #### 1.2.3 Erros de Validação
-Esse tipo é retornados quando há erro na validação do formulário. Nesse caso é preenchido o array *data* do retorno com a
-informação referente aos campos com erro.
-O nome da categoria retornado é *validation* e o status HTTP da resposta é 400. 
+É retornado quando há erro na validação do formulário. Nesse caso é preenchido o array *data* com as
+informação referentes aos campos com erro.
+O nome da categoria retornada é *validation* e o status HTTP da resposta é 400. 
 
 Exemplo:
 ```json
@@ -404,9 +406,9 @@ Exemplo:
 }
 ```
 #### 1.2.4 Erros de Autorização
-Esse tipo é retornados quando o usuário não é autorizado a realizar algum processo. Por exemplo, uma loja tentar realizar
+Esse tipo é retornado quando o usuário não é autorizado a realizar algum processo. Por exemplo, uma loja tentar realizar
 uma transferência para qualquer outro usuário.
-O nome da categoria retornado é *authorization* e o status HTTP da resposta é 401. 
+O nome da categoria retornada é *authorization* e o status HTTP da resposta é 401. 
 
 Exemplo:
 ```json
@@ -419,8 +421,8 @@ Exemplo:
 ```
 #### 1.2.5 Erros Internos
 
-Esse tipo é retornados quando há um erro interno não esperado.
-O nome da categoria retornado é *internal* e o status HTTP da resposta é 500. 
+Esse tipo é retornado quando há um erro interno não esperado.
+O nome da categoria retornada é *internal* e o status HTTP da resposta é 500. 
 
 Exemplo:
 ```json
