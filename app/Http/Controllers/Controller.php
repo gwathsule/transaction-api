@@ -11,29 +11,6 @@ class Controller extends BaseController
     protected const CONTENT_TYPE_RESPONSE = 'application/json';
 
     /**
-     * @param string $message
-     * @param string $category
-     * @param array $data
-     * @return Response
-     */
-    protected function buildUserErrorResponse(
-        string $message,
-        string $category,
-        int $statusError,
-        array $data = []
-    ) {
-        $content = [
-            'error' => true,
-            'category' => $category,
-            'message' => $message,
-            'data' => $data
-        ];
-
-        return response($content, $statusError)
-            ->header('Content-Type', self::CONTENT_TYPE_RESPONSE);
-    }
-
-    /**
      * @param array $content
      * @return Response
      */

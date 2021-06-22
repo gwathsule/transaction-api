@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
+use App\Exceptions\ValidationException as ServiceValidationException;
+use Exception;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
@@ -49,6 +51,29 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        return parent::render($request, $exception);
+        if($exception instanceof ServiceValidationException) {
+            return response()->json([
+                'error' => true,
+                'category' => $exception->getCategory(),
+                'message' => $exception->getUserMessage(),
+                'data' => $exception->getErrors()
+            ], $exception->getStatus());
+        }
+
+        if($exception instanceof UserException) {
+            return response()->json([
+                'error' => true,
+                'category' => $exception->getCategory(),
+                'message' => $exception->getUserMessage(),
+                'data' => []
+            ], $exception->getStatus());
+        }
+
+        return response()->json([
+            'error' => true,
+            'category' => InternalServerException::CATEGORY,
+            'message' => InternalServerException::USER_MESSAGE,
+            'data' => []
+        ], InternalServerException::STATUS);
     }
 }
