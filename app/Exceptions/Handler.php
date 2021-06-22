@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\ExternalServices\TransactionAuthorizer\ExternalAuthorizerException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
@@ -61,6 +62,15 @@ class Handler extends ExceptionHandler
         }
 
         if($exception instanceof UserException) {
+            return response()->json([
+                'error' => true,
+                'category' => $exception->getCategory(),
+                'message' => $exception->getUserMessage(),
+                'data' => []
+            ], $exception->getStatus());
+        }
+
+        if($exception instanceof ExternalAuthorizerException) {
             return response()->json([
                 'error' => true,
                 'category' => $exception->getCategory(),

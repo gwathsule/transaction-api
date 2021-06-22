@@ -34,7 +34,7 @@ class PerformTransactionServiceTest extends TestCase
 
         /** @var ExternalNotifier $fakeNotifier */
         $fakeNotifier = Mockery::mock(ExternalNotifier::class)
-            ->shouldReceive('notifyUser')
+            ->shouldReceive('notify')
             ->once()
             ->andReturn(true)
             ->getMock();
@@ -218,7 +218,7 @@ class PerformTransactionServiceTest extends TestCase
 
         /** @var ExternalNotifier $fakeNotifier */
         $fakeNotifier = Mockery::mock(ExternalNotifier::class)
-            ->shouldReceive('notifyUser')
+            ->shouldReceive('notify')
             ->once()
             ->andReturn(false)
             ->getMock();

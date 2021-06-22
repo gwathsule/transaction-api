@@ -76,7 +76,7 @@ class PerformTransaction extends Service
             if (! $authorized) {
                 throw new AuthorizationException('Not authorized.');
             }
-            $transaction->notified = $this->notifier->notifyUser($payee->email);
+            $transaction->notified = $this->notifier->notify($payee->email);
             $this->userRepository->update($payee);
             $this->userRepository->update($payer);
             $this->transactionRepository->save($transaction);

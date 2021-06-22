@@ -4,5 +4,5 @@ namespace App\Core;
 
 interface Notifier
 {
-    public function notifier($mensagem) : bool;
+    public function notify($mensagem) : bool;
 }

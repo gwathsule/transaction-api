@@ -17,7 +17,7 @@ class ExternalNotifier implements Notifier
     }
 
 
-    public function notifier($email) : bool
+    public function notify($email) : bool
     {
         try {
             $data = $this->client->performRequest(self::URL, true);
@@ -25,7 +25,7 @@ class ExternalNotifier implements Notifier
                 return true;
             }
         } catch (Exception $exception) {
-            throw new NotifierException($exception->getMessage());
+            return false;
         }
         return false;
     }

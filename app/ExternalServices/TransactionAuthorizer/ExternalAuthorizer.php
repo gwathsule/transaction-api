@@ -25,7 +25,7 @@ class ExternalAuthorizer implements Authorizer
                 return true;
             }
         } catch (Exception $exception) {
-            throw new AuthorizerException($exception->getMessage());
+            throw new ExternalAuthorizerException($exception->getMessage());
         }
         return false;
     }
